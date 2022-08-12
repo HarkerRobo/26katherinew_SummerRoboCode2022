@@ -17,6 +17,7 @@ public class Intake extends SubsystemBase{
     private DoubleSolenoid intake;
     private static final int FOWARD_ID=0;
     private static final int REVERSE_ID=0;
+    private boolean intaking;
 
 
     private Intake(){
@@ -37,9 +38,18 @@ public class Intake extends SubsystemBase{
     }
 
     public void setOutput(double output){
+        if (output>0.1){
+            intaking=true;
+        }
+        else{
+            intaking=false;
+        }
         motor.set(ControlMode.PercentOutput, output);
     }
 
+    public boolean isIntaking(){
+        return intaking;
+    }
 
     public static Intake getInstance(){
         if (instance==null){
